@@ -21,13 +21,13 @@ public class UsuarioController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/registrar")
+    @GetMapping("cadastro/registrar")
     public String exibirFormularioCadastro(Model model) {
         model.addAttribute("usuario", new Usuario());
         return "cadastro/registrar";
     }
 
-    @PostMapping("/registrar")
+    @PostMapping("cadastro/registrar")
     public String cadastrarUsuario(Usuario usuario) {
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         usuarioService.salvar(usuario);
@@ -39,7 +39,7 @@ public class UsuarioController {
         return "cadastro/login";
     }
 
-    @GetMapping("/inicio")
+    @GetMapping("/pagGeral")
     public String paginaInicial() {
         return "PagGeral";
     }

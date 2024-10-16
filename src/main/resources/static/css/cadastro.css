@@ -1,0 +1,107 @@
+/* Estilos gerais */
+* {
+    box-sizing: border-box; /* Inclui padding e border no cálculo da largura e altura */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px; /* Adiciona um pequeno preenchimento */
+}
+
+/* Contêiner para centralizar o conteúdo */
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Permite que o contêiner utilize toda a largura disponível */
+    max-width: 400px; /* Define uma largura máxima para o contêiner */
+    text-align: center; /* Centraliza o texto dentro do contêiner */
+}
+
+/* Título */
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Estilização do formulário */
+form {
+    display: flex;
+    flex-direction: column; /* Alinha os itens em coluna */
+    gap: 15px; /* Espaçamento entre os itens do formulário */
+}
+
+/* Estilo dos rótulos */
+label {
+    font-size: 14px;
+    color: #333;
+    text-align: left; /* Alinha o texto do rótulo à esquerda */
+}
+
+/* Estilização dos campos de entrada */
+input[type="text"],
+input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%; /* Faz os campos de entrada ocuparem toda a largura do contêiner */
+}
+
+/* Foco nos campos de entrada */
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Estilo do botão */
+button {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo do link de registro */
+.link-registro {
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.link-registro:hover {
+    text-decoration: underline;
+}
+
+/* Media Query para dispositivos móveis */
+@media (max-width: 500px) {
+    body {
+        padding: 10px; /* Ajusta o padding em telas menores */
+    }
+
+    .container {
+        padding: 20px; /* Ajusta o padding do contêiner em telas menores */
+    }
+
+    h1 {
+        font-size: 24px; /* Ajusta o tamanho da fonte do título */
+    }
+}
+

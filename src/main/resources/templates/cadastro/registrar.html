@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
-     <link rel="stylesheet" type="text/css" th:href="@{/cadastro.css}">
+    <link rel="stylesheet" type="text/css" href="/css/cadastro.css"> <!-- Use "/" para garantir o caminho absoluto -->
 </head>
 <body>
-    <h1>Cadastro</h1>
-    <form th:action="@{cadastro/registrar}" method="post" th:object="${usuario}">
-        <label for="nome">Nome:</label>
-        <input type="text" th:field="*{nome}" />
-        <label for="email">Email:</label>
-        <input type="text" th:field="*{email}" />
-        <label for="senha">Senha:</label>
-        <input type="password" th:field="*{senha}" />
-        <button type="submit">Cadastrar</button>
-    </form>
+    <div class="container">
+        <h1>Cadastro</h1>
+        <form th:action="@{/cadastro/registrar}" method="post" th:object="${usuario}">
+            <label for="nome">Nome:</label>
+            <input type="text" th:field="*{nome}" required />
+            <label for="email">Email:</label>
+            <input type="text" th:field="*{email}" required />
+            <label for="senha">Senha:</label>
+            <input type="password" th:field="*{senha}" required />
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
 </body>
 </html>

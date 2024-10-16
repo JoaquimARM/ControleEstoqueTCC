@@ -26,14 +26,15 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable()) // Desabilitar CSRF temporariamente (dependendo da necessidade)
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/cadastro", "/login").permitAll()  // URLs públicas
+            	.requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                .requestMatchers("/cadastro/registrar", "/cadastro/login").permitAll()  // URLs públicas
                 .requestMatchers("/admin/**").hasRole("ADMIN")        // URLs com acesso de administrador
-                .requestMatchers("/inicio").hasAnyRole("ADMIN", "USER") // Página inicial para usuários logados
+                .requestMatchers("/pagGeral").hasAnyRole("ADMIN", "USER") // Página inicial para usuários logados
                 .anyRequest().authenticated()                           // Qualquer outra URL requer autenticação
             )
             .formLogin(form -> form
                 .loginPage("/login")
-                .defaultSuccessUrl("/inicio", true)
+                .defaultSuccessUrl("/pagGeral", true)
                 .permitAll()
             )
             .logout(logout -> logout

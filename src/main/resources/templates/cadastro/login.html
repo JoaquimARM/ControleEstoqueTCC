@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/cadastro.css}">
+    <link rel="stylesheet" type="text/css" href="css/cadastro.css">
 </head>
 <body>
-    <h1>Login</h1>
-    <form th:action="@{/cadastro/login}" method="post">
-        <label for="username">Email:</label>
-        <input type="text" name="username" />
-        <label for="password">Senha:</label>
-        <input type="password" name="password" />
-        <button type="submit">Entrar</button>
-    </form>
-    <a th:href="@{cadastro/registrar}">Registrar</a>
+    <div class="container">
+        <h1>Login</h1>
+        <form th:action="@{/cadastro/login}" method="post">
+            <label for="username">Email:</label>
+            <input type="text" id="username" name="username" required />
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required />
+            <button type="submit">Entrar</button>
+        </form>
+        <p>Não tem uma conta? <a class="link-registro" th:href="@{/cadastro/registrar}">Registre-se</a></p>
+    </div>
 </body>
 </html>
