@@ -5,6 +5,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 public class UsuarioDetalhes implements UserDetails {
@@ -17,10 +18,8 @@ public class UsuarioDetalhes implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Transforma os papéis do usuário em `GrantedAuthority` (autoridades do Spring Security)
-        return usuario.getPapeis().stream()
-                .map(papel -> new SimpleGrantedAuthority("ROLE_" + papel))
-                .collect(Collectors.toList());
+        // Como não estamos usando papéis, retornamos uma coleção vazia de autoridades
+        return Collections.emptyList();
     }
 
     @Override

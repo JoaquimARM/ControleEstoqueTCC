@@ -31,7 +31,8 @@ public class UsuarioController {
     public String cadastrarUsuario(Usuario usuario) {
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         usuarioService.salvar(usuario);
-        return "redirect:cadastro/login";
+        System.out.println("Usuário registrado: " + usuario.getEmail());
+        return "redirect:login";
     }
 
     @GetMapping("/login")

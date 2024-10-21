@@ -15,10 +15,7 @@ public class Usuario {
     private String email;
     private String senha;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "usuario_id"))
-    @Column(name = "role")
-    private Collection<String> papeis;
+
 
 	public Long getId() {
 		return id;
@@ -52,13 +49,6 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public Collection<String> getPapeis() {
-		return papeis;
-	}
-
-	public void setPapeis(Collection<String> papeis) {
-		this.papeis = papeis;
-	}
 
     
 }

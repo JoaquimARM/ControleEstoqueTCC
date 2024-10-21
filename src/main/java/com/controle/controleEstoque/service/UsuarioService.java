@@ -35,6 +35,7 @@ public class UsuarioService implements UserDetailsService {
         if (usuario == null) {
             throw new UsernameNotFoundException("Usuário não encontrado");
         }
+        System.out.println("Usuário encontrado: " + usuario.getEmail());
         return new UsuarioDetalhes(usuario);
     }
 }

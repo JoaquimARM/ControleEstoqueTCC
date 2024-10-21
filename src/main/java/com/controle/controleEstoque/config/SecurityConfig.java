@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,13 +29,12 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
             	.requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
                 .requestMatchers("/cadastro/registrar", "/cadastro/login").permitAll()  // URLs públicas
-                .requestMatchers("/admin/**").hasRole("ADMIN")        // URLs com acesso de administrador
-                .requestMatchers("/pagGeral").hasAnyRole("ADMIN", "USER") // Página inicial para usuários logados
                 .anyRequest().authenticated()                           // Qualquer outra URL requer autenticação
             )
             .formLogin(form -> form
                 .loginPage("/login")
-                .defaultSuccessUrl("/pagGeral", true)
+                    .failureUrl("/login?error=true")  // Redireciona para /login com uma mensagem de erro caso a autenticação falhe
+                    .defaultSuccessUrl("/", true)
                 .permitAll()
             )
             .logout(logout -> logout
