@@ -18,7 +18,7 @@ public class UsuarioDetalhes implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Como não estamos usando papéis, retornamos uma coleção vazia de autoridades
+        
         return Collections.emptyList();
     }
 

@@ -28,13 +28,13 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable()) // Desabilitar CSRF temporariamente (dependendo da necessidade)
             .authorizeHttpRequests(auth -> auth
             	.requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                .requestMatchers("/cadastro/registrar", "/cadastro/login").permitAll()  // URLs públicas
+                .requestMatchers("/registrar", "/login").permitAll()  // URLs públicas
                 .anyRequest().authenticated()                           // Qualquer outra URL requer autenticação
             )
             .formLogin(form -> form
                 .loginPage("/login")
                     .failureUrl("/login?error=true")  // Redireciona para /login com uma mensagem de erro caso a autenticação falhe
-                    .defaultSuccessUrl("/", true)
+                    .defaultSuccessUrl("/pagGeral", true)
                 .permitAll()
             )
             .logout(logout -> logout
