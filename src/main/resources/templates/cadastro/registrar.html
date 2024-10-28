@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h1>Cadastro</h1>
-        <form th:action="@{/cadastro/registrar}" method="post" th:object="${usuario}">
+        <form th:action="@{/registrar}" method="post" th:object="${usuario}">
             <label for="nome">Nome:</label>
             <input type="text" th:field="*{nome}" required />
             <label for="email">Email:</label>

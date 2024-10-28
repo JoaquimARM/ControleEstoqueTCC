@@ -33,8 +33,7 @@ public class SecurityConfig {
             )
             .formLogin(form -> form
                 .loginPage("/login")
-                    .failureUrl("/login?error=true")  // Redireciona para /login com uma mensagem de erro caso a autenticação falhe
-                    .defaultSuccessUrl("/pagGeral", true)
+                .defaultSuccessUrl("/pagGeral", true)
                 .permitAll()
             )
             .logout(logout -> logout
@@ -50,13 +49,4 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return usuarioService;
-    }
 }
