@@ -1,0 +1,166 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #333;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    z-index: 1;
+}
+
+.logo-nome {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 40px;
+    margin-right: 8px;
+}
+
+.titulo-site {
+    font-size: 22px; /* Ajuste para fonte normal */
+    font-weight: normal;
+    color: #ddd;
+}
+
+.perfil {
+    display: flex;
+    align-items: center;
+}
+
+.nome-usuario {
+    margin-right: 10px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.foto-perfil {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.container {
+    display: flex;
+    margin-top: 60px; /* Adiciona o espaço para o header fixo */
+}
+
+.menu-lateral {
+    width: 220px;
+    background-color: #1c1c1c;
+    padding: 20px;
+    height: calc(100vh - 60px); /* Altura total da tela menos a altura do header */
+    position: fixed;
+    top: 60px; /* Posiciona o menu logo abaixo do header */
+    left: 0;
+    z-index: 1;
+}
+
+.menu-lateral ul {
+    list-style-type: none;
+    font-size: 14px;
+}
+
+.menu-lateral li {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.menu-lateral a {
+    color: white;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.material-icons {
+    color: #1e90ff;
+    font-size: 20px;
+}
+
+.menu-lateral li:hover {
+    background-color: #333;
+    border-radius: 4px;
+}
+
+main {
+    flex-grow: 1;
+    padding: 20px;
+    padding-left: 260px;
+}
+
+.header-main {
+    display: flex;
+    flex-direction: column; /* Organiza o título e os botões em coluna */
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: #333;
+    font-size: 32px; /* Tamanho maior para "Estoque Disponível" */
+    margin-bottom: 20px;
+}
+
+.botoes-topo {
+    display: flex;
+    gap: 10px;
+    width: 100%; /* Faz com que os botões ocupem a largura total */
+}
+
+.botao-adicionar, .botao-entrada, .botao-saida, .botao-editar, .botao-apagar {
+    flex-grow: 1; /* Expande cada botão igualmente */
+    padding: 10px 0; /* Aumenta a altura dos botões */
+    font-size: 16px; /* Fonte um pouco maior */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #1e90ff; /* Cor uniforme para todos os botões */
+    text-align: center;
+}
+
+.botao-adicionar:hover, .botao-entrada:hover, .botao-saida:hover, .botao-editar:hover, .botao-apagar:hover {
+    opacity: 0.9;
+}
+
+.tabela-estoque {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tabela-estoque th, .tabela-estoque td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.tabela-estoque th {
+    background-color: #333;
+    color: white;
+}

@@ -1,11 +1,72 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Início</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock-Up - Página Inicial</title>
+    <link rel="stylesheet" href="css/home.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
-    <h1>Página Inicial</h1>
-    <p>Bem-vindo(a)!</p>
-    <a th:href="@{/logout}">Sair</a>
+<header>
+    <div class="logo-nome">
+        <img src="logo.png" alt="Logo Stock-Up" class="logo">
+        <span class="titulo-site">Stock-Up</span>
+    </div>
+    <div class="perfil">
+        <span class="nome-usuario">Nome do Usuário</span>
+        <img src="foto_perfil.png" alt="Foto de Perfil" class="foto-perfil">
+    </div>
+</header>
+
+<div class="container">
+    <aside class="menu-lateral">
+        <ul>
+            <li><span class="material-icons">add</span><a href="#">Cadastrar Produto</a></li>
+            <li><span class="material-icons">person_add</span><a href="#">Cadastrar Fornecedor</a></li>
+            <li><span class="material-icons">inventory</span><a href="#">Controle de Inventário</a></li>
+            <li><span class="material-icons">history</span><a href="#">Histórico de Entradas e Saídas</a></li>
+            <li><span class="material-icons">list</span><a href="#">Lista de Produtos Cadastrados</a></li>
+            <li><span class="material-icons">group</span><a href="#">Lista de Fornecedores Cadastrados</a></li>
+        </ul>
+    </aside>
+
+    <main>
+        <div class="header-main">
+                <h1>Estoque Disponível</h1>
+                <div class="botoes-topo">
+                    <button class="botao-adicionar">Adicionar Produto</button>
+                    <button class="botao-editar">Editar Produto</button>
+                    <button class="botao-apagar">Apagar Produto</button>
+                    <button class="botao-entrada">Registrar Entrada</button>
+                    <button class="botao-saida">Registrar Saída</button>
+                </div>
+        </div>
+
+        <table class="tabela-estoque">
+            <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Preços</th>
+                <th>Data de Validade</th>
+                <th>Data de Entrada</th>
+                <th>Fornecedor</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Produto Exemplo</td>
+                <td>50</td>
+                <td>R$ 20,00</td>
+                <td>01/01/2025</td>
+                <td>01/01/2024</td>
+                <td>Fornecedor Exemplo</td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+</div>
 </body>
 </html>
