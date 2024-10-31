@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Produtos</title>
+    <link rel="stylesheet" href="/css/listas.css">
+</head>
+<body>
+<div class="navbar">
+    <h2>Listagem de Produtos</h2>
+    <a href="/pagGeral">Voltar à Página Inicial</a>
+</div>
+<div class="table-container">
+    <h1>Produtos Cadastrados</h1>
+    <div class="button-group">
+        <a href="/produtos/cadastrarProduto">
+            <button id="addProductBtn">Adicionar Produto</button>
+        </a>
+        <button id="editProductBtn" onclick="definirAcao('editar')">Editar Produto</button>
+        <button id="deleteProductBtn" onclick="definirAcao('apagar')">Apagar Produto</button>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Fornecedor</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="produto : ${produtos}" th:data-produto-id="${produto.id}" onclick="selecionarProdutoLinha(this)">
+            <td th:text="${produto.nome}"></td>
+            <td th:text="${produto.preco}"></td>
+            <td th:text="${produto.fornecedor}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    let produtoSelecionadoId = null;
+    let acao = "";
+
+    function definirAcao(tipoAcao) {
+        acao = tipoAcao;
+    }
+
+    function selecionarProdutoLinha(linha) {
+        if (!acao) {
+            return;
+        }
+        // Limpa seleção anterior
+        const linhas = document.querySelectorAll('tbody tr');
+        linhas.forEach(l => l.classList.remove('selecionado'));
+
+        // Define a nova seleção
+        linha.classList.add('selecionado');
+        produtoSelecionadoId = linha.getAttribute("data-produto-id");
+
+        if (acao === "editar") {
+            window.location.href = '/produtos/editar/' + produtoSelecionadoId;
+        } else if (acao === "apagar") {
+            if (confirm("Tem certeza que deseja apagar este produto?")) {
+                window.location.href = '/produtos/apagar/' + produtoSelecionadoId;
+            }
+        }
+    }
+</script>
+</body>
+</html>

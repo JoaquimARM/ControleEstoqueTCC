@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Fornecedor</title>
+    <link rel="stylesheet" href="/css/formulario.css">
+</head>
+<body>
+<div class="navbar">
+    <h2>Cadastrar Fornecedor</h2>
+    <a href="/pagGeral">Voltar à Página Inicial</a>
+</div>
+<div class="container">
+    <h1>Cadastrar Fornecedor</h1>
+    <form th:action="@{/fornecedores/salvarFornecedor}" th:object="${fornecedor}" method="post">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" th:field="*{nome}" required>
+
+        <label for="endereco">Endereço</label>
+        <input type="text" id="endereco" th:field="*{endereco}" required>
+
+        <label for="cnpj">CNPJ</label>
+        <input type="text" id="cnpj" th:field="*{cnpj}" required>
+
+        <label for="tipo">Tipo</label>
+        <input type="text" id="tipo" th:field="*{tipo}" required>
+
+        <button type="submit" class="btn">Salvar</button>
+    </form>
+</div>
+</body>
+</html>

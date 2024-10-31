@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Listar Fornecedores</title>
+    <link rel="stylesheet" href="/css/listas.css">
+</head>
+<body>
+<div class="navbar">
+    <h2>Listagem de Fornecedores</h2>
+    <a href="/pagGeral">Voltar à Página Inicial</a>
+</div>
+
+<div class="table-container">
+    <h1>Produtos Cadastrados</h1>
+    <div class="button-group">
+        <a href="/fornecedores/cadastrarFornecedores">
+            <button id="addProductBtn">Adicionar Produto</button>
+        </a>
+        <button id="editProductBtn" onclick="definirAcao('editar')">Editar Produto</button>
+        <button id="deleteProductBtn" onclick="definirAcao('apagar')">Apagar Produto</button>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Endereço</th>
+            <th>CNPJ</th>
+            <th>Tipo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="fornecedor : ${fornecedores}" th:data-fornecedor-id="${fornecedor.id}" onclick="selecionarFornecedorLinha(this)">
+            <td th:text="${fornecedor.id}"></td>
+            <td th:text="${fornecedor.nome}"></td>
+            <td th:text="${fornecedor.endereco}"></td>
+            <td th:text="${fornecedor.cnpj}"></td>
+            <td th:text="${fornecedor.tipo}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    let fornecedorSelecionadoId = null;
+    let acao = "";
+
+    function definirAcao(tipoAcao) {
+        acao = tipoAcao;
+    }
+
+    function selecionarFornecedorLinha(linha) {
+        if (!acao) {
+            return;
+        }
+        // Limpa seleção anterior
+        const linhas = document.querySelectorAll('tbody tr');
+        linhas.forEach(l => l.classList.remove('selecionado'));
+
+        // Define a nova seleção
+        linha.classList.add('selecionado');
+        fornecedorSelecionadoId = linha.getAttribute("data-fornecedor-id");
+
+        if (acao === "editar") {
+            window.location.href = '/fornecedores/editar/' + fornecedorSelecionadoId;
+        } else if (acao === "deletar") {
+            if (confirm("Tem certeza que deseja apagar este produto?")) {
+                window.location.href = '/fornecedores/deletar/' + fornecedorSelecionadoId;
+            }
+        }
+    }
+</script>
+</body>
+</html>

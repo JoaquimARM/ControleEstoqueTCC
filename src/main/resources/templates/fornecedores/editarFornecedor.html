@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Produto</title>
+    <link rel="stylesheet" href="/css/formulario.css">
+</head>
+<body>
+<header>
+    <h1>Editar Produto</h1>
+</header>
+
+<div class="container">
+    <form th:action="@{/fornecedores/atualizar/{id}(id=${fornecedor.id})}" th:object="${fornecedor}" method="post">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" th:value="${fornecedor.nome}" required>
+
+        <label for="endereco">Endereço</label>
+        <input type="text" id="endereco" name="endereco" th:value="${fornecedor.endereco}" required>
+
+        <label for="cnpj">CNPJ</label>
+        <input type="text" id="cnpj" name="cnpj" th:value="${fornecedor.cnpj}" required>
+
+        <label for="tipo">Tipo</label>
+        <input type="text" id="tipo" name="tipo" th:value="${fornecedor.tipo}" required>
+
+        <button type="submit" class="btn">Salvar</button>
+    </form>
+</div>
+</body>
+</html>

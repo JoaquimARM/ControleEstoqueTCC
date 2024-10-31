@@ -1,0 +1,106 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f4f6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Barra de navegação superior */
+.navbar {
+    background-color: #333;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar h2 {
+    color: #fff;
+    font-size: 20px;
+    margin: 0;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px;
+    background-color: #555;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar a:hover {
+    background-color: #333;
+}
+
+/* Container principal */
+.table-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+/* Título */
+.table-container h1 {
+    font-size: 28px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilo da Tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f1f1f1;
+    color: #333;
+    font-weight: bold;
+}
+
+td {
+    color: #555;
+}
+
+.button-group {
+    margin-bottom: 15px;
+}
+
+#addProductBtn,
+#editProductBtn,
+#deleteProductBtn {
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#addProductBtn:hover,
+#editProductBtn:hover,
+#deleteProductBtn:hover {
+    background-color: #0056b3;
+}
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.selecionado {
+    background-color: #e0f7fa;
+    font-weight: bold;
+    color: #007BFF;
+}
