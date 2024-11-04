@@ -21,7 +21,13 @@
         <input type="number" id="preco" name="preco" step="0.01" required>
 
         <label for="fornecedor">Fornecedor:</label>
-        <input type="text" id="fornecedor" name="fornecedor" required>
+        <select id="fornecedor" th:field="*{fornecedor}" required>
+        	<option value="" disabled selected>Selecione um fornecedor</option>
+        	<option th:each="fornecedor : ${fornecedores}"
+                th:value="${fornecedor.id}"
+                th:text="${fornecedor.nome}">
+        	</option>
+    	</select>
 
         <button type="submit" class="btn">Cadastrar Produto</button>
     </form>

@@ -12,17 +12,21 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/produtos")
 public class ProdutoController {
 
-    @Autowired
-    private ProdutoService produtoService;
+   
+    private final ProdutoService produtoService;
+    private final FornecedorService fornecedorService;
 
-    public ProdutoController(ProdutoService produtoService) {
+    @Autowired
+    public ProdutoController(ProdutoService produtoService, FornecedorService fornecedorService) {
         this.produtoService = produtoService;
+        this.fornecedorService = fornecedorService;
     }
 
     // Exibir a página de cadastro de produto
     @GetMapping("/cadastrarProduto")
     public String mostrarFormularioCadastro(Model model) {
         model.addAttribute("produto", new Produto()); // Adiciona um novo objeto Produto para o formulário
+        model.addAttribute("fornecedores", fornecedorService.listarTodos());
         return "produtos/cadastrarProduto"; // Nome da página HTML do Thymeleaf (cadastrar_produto.html)
     }
 
