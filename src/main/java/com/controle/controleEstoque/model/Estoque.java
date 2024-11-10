@@ -32,7 +32,7 @@ public class Estoque {
     private LocalDate dataValidade; // Para exibição na tabela
 
     @Column(name = "ultima_data_entrada")
-    private LocalDate ultimaDataEntrada; // A última entrada registrada
+    private LocalDate ultimaDataEntrada; // A última entrada registrada.
 
     //public Estoque(Produto produto, int quantidade, BigDecimal preco, LocalDate dataValidade, LocalDate ultimaDataEntrada, Fornecedor fornecedor) {
     //    this.produto = produto;
