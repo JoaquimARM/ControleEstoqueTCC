@@ -4,8 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,25 +17,15 @@ public class Produto {
     private String nome;
     private BigDecimal preco;
     //private LocalDate dataValidade;
-    @ManyToOne
-    @JoinColumn(name = "fornecedor_id", nullable = false)
-    private Fornecedor fornecedor;
+
 
     // Getters e Setters
-    
+
     public BigDecimal getPreco() {
         return preco;
     }
 
-    public Fornecedor getFornecedor() {
-		return fornecedor;
-	}
-
-	public void setFornecedor(Fornecedor fornecedor) {
-		this.fornecedor = fornecedor;
-	}
-
-	public void setPreco(BigDecimal preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 
@@ -57,11 +45,4 @@ public class Produto {
         this.id = id;
     }
 
-    //public LocalDate getDataValidade() {
-     //   return dataValidade;
-    //}
-
-    //public void setDataValidade(LocalDate dataValidade) {
-       // this.dataValidade = dataValidade;
-    //}
 }

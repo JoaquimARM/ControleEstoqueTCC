@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Produto ao Estoque</title>
+    <link rel="stylesheet" href="/css/formulario.css">
+</head>
+<body>
+<div class="navbar">
+    <h2>Adicionar Produto ao Estoque</h2>
+    <a href="/pagGeral">Voltar à Página Inicial</a>
+</div>
+<div class="container">
+    <h1>Adicionar Produto ao Estoque</h1>
+    <!-- Formulário de adição de produto ao estoque -->
+    <form th:action="@{/estoque/adicionarEstoque}" th:object="${estoque}" method="post">
+
+        <!-- Seleciona o produto cadastrado -->
+        <label for="produto">Produto:</label>
+        <select id="produto" name="produto" required th:field="*{produto}">
+            <option value="" disabled selected>Selecione um produto</option>
+            <option th:each="produto : ${produtos}" th:value="${produto}" th:text="${produto.nome}" data-preco="${produto.preco}"></option>
+        </select>
+
+        <!-- Seleciona o fornecedor cadastrado -->
+        <label for="fornecedor">Fornecedor:</label>
+        <select id="fornecedor" name="fornecedor" required th:field="*{fornecedor}">
+            <option value="" disabled selected>Selecione um fornecedor</option>
+            <option th:each="fornecedor : ${fornecedores}" th:value="${fornecedor}" th:text="${fornecedor.nome}"></option>
+        </select>
+
+        <!-- Botão de adicionar -->
+        <button type="submit" class="btn">Adicionar ao Estoque</button>
+    </form>
+</div>
+<script>
+    function atualizarPreco() {
+        const selectProduto = document.getElementById("produtoSelect");
+        const selectedOption = selectProduto.options[selectProduto.selectedIndex];
+        const preco = selectedOption.getAttribute("data-preco");
+        document.getElementById("preco").value = preco ? parseFloat(preco).toFixed(2) : '';
+    }
+</script>
+</body>
+</html>

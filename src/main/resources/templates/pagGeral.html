@@ -36,7 +36,7 @@
         <div class="header-main">
                 <h1>Estoque Disponível</h1>
                 <div class="botoes-topo">
-                    <button class="botao-adicionar">Adicionar Produto</button>
+                    <button class="botao-adicionar"onclick="window.location.href='/estoque/adicionarEstoque'">Adicionar Produto</button>
                     <button class="botao-editar">Editar Produto</button>
                     <button class="botao-apagar">Apagar Produto</button>
                     <button class="botao-entrada">Registrar Entrada</button>
@@ -56,13 +56,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Produto Exemplo</td>
-                <td>50</td>
-                <td>R$ 20,00</td>
-                <td>01/01/2025</td>
-                <td>01/01/2024</td>
-                <td>Fornecedor Exemplo</td>
+            <tr th:each="item : ${estoque}">
+                <td th:text="${item.produto.nome}">Produto Exemplo</td>
+                <td th:text="${item.quantidade}">50</td>
+                <td th:text="${item.preco}">R$ 20,00</td>
+                <td th:text="${item.dataValidade}">01/01/2025</td>
+                <td th:text="${item.dataEntrada}">01/01/2024</td>
+                <td th:text="${item.fornecedor.nome}">Fornecedor Exemplo</td>
             </tr>
             </tbody>
         </table>

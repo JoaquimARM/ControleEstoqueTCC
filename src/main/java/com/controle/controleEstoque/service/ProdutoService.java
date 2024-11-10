@@ -30,8 +30,6 @@ public class ProdutoService {
         if (produtoExistente != null) {
             produtoExistente.setNome(produtoAtualizado.getNome());
             produtoExistente.setPreco(produtoAtualizado.getPreco());
-            //produtoExistente.setDataValidade(produtoAtualizado.getDataValidade());
-            produtoExistente.setFornecedor(produtoAtualizado.getFornecedor());
             produtoRepository.save(produtoExistente);
         }
     }
