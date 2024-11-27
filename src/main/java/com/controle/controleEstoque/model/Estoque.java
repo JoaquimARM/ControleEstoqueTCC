@@ -6,44 +6,57 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 
+import jakarta.persistence.*;
+import java.time.LocalDate;
+
 @Entity
-@Table(name = "estoque")
 public class Estoque {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "produto_id", nullable = false)
     private Produto produto;
+
+    @Column(nullable = false)
+    private BigDecimal preco;
 
     @ManyToOne
     @JoinColumn(name = "fornecedor_id", nullable = false)
     private Fornecedor fornecedor;
 
-    @Column(nullable = false)
-    private BigDecimal preco;
+    private int quantidade;
 
-    @Column
-    private Integer quantidade; // Inicialmente nulo ou zero
+    private LocalDate dataEntrada;
 
-    @Column(name = "data_validade")
-    private LocalDate dataValidade; // Para exibição na tabela
+    @Temporal(TemporalType.DATE)
+    private LocalDate dataValidade;
 
-    @Column(name = "ultima_data_entrada")
-    private LocalDate ultimaDataEntrada; // A última entrada registrada.
+    private int estoqueMinimo = 0;
+    @Transient
+    private String status;
 
-    //public Estoque(Produto produto, int quantidade, BigDecimal preco, LocalDate dataValidade, LocalDate ultimaDataEntrada, Fornecedor fornecedor) {
-    //    this.produto = produto;
-    //    this.quantidade = quantidade;
-    //    this.preco = preco;
-    //    this.dataValidade = dataValidade;
-    //    this.ultimaDataEntrada = ultimaDataEntrada;
-    //    this.fornecedor = fornecedor;
-    //}
+    // Getter e Setter
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public Long getId() {
         return id;
+    }
+
+    public int getEstoqueMinimo() {
+        return estoqueMinimo;
+    }
+
+    public void setEstoqueMinimo(int estoqueMinimo) {
+        this.estoqueMinimo = estoqueMinimo;
     }
 
     public void setId(Long id) {
@@ -57,7 +70,6 @@ public class Estoque {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
-
     public Fornecedor getFornecedor() {
         return fornecedor;
     }
@@ -74,12 +86,20 @@ public class Estoque {
         this.preco = preco;
     }
 
-    public Integer getQuantidade() {
+    public int getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(Integer quantidade) {
+    public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public LocalDate getDataEntrada() {
+        return dataEntrada;
+    }
+
+    public void setDataEntrada(LocalDate dataEntrada) {
+        this.dataEntrada = dataEntrada;
     }
 
     public LocalDate getDataValidade() {
@@ -88,13 +108,5 @@ public class Estoque {
 
     public void setDataValidade(LocalDate dataValidade) {
         this.dataValidade = dataValidade;
-    }
-
-    public LocalDate getUltimaDataEntrada() {
-        return ultimaDataEntrada;
-    }
-
-    public void setUltimaDataEntrada(LocalDate ultimaDataEntrada) {
-        this.ultimaDataEntrada = ultimaDataEntrada;
     }
 }

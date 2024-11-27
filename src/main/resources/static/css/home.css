@@ -42,24 +42,6 @@ header {
     color: #ddd;
 }
 
-.perfil {
-    display: flex;
-    align-items: center;
-}
-
-.nome-usuario {
-    margin-right: 10px;
-    font-weight: 500;
-    font-size: 14px;
-}
-
-.foto-perfil {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    background-color: white;
-}
-
 .container {
     display: flex;
     margin-top: 60px; /* Adiciona o espaço para o header fixo */
@@ -163,4 +145,9 @@ h1 {
 .tabela-estoque th {
     background-color: #333;
     color: white;
+}
+
+.tabela-estoque tbody tr.selecionado {
+    background-color: #f0f8ff;
+    color: #000;
 }

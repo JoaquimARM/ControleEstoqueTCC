@@ -23,14 +23,22 @@
     <table>
         <thead>
         <tr>
+            <th>ID</th>
             <th>Nome</th>
             <th>Preço</th>
+            <th>Fornecedor</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="produto : ${produtos}" th:data-produto-id="${produto.id}" onclick="selecionarProdutoLinha(this)">
+            <td th:text="${produto.id}"></td>
             <td th:text="${produto.nome}"></td>
             <td th:text="${produto.preco}"></td>
+            <td>
+                <th:block th:each="fornecedor : ${produto.fornecedores}">
+                    <ul th:text="${fornecedor.nome}"></ul>
+                </th:block>
+            </td>
         </tr>
         </tbody>
     </table>

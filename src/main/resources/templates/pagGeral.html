@@ -11,12 +11,8 @@
 <body>
 <header>
     <div class="logo-nome">
-        <img src="logo.png" alt="Logo Stock-Up" class="logo">
+
         <span class="titulo-site">Stock-Up</span>
-    </div>
-    <div class="perfil">
-        <span class="nome-usuario">Nome do Usuário</span>
-        <img src="foto_perfil.png" alt="Foto de Perfil" class="foto-perfil">
     </div>
 </header>
 
@@ -25,8 +21,8 @@
         <ul>
             <li><span class="material-icons">add</span><a href="/produtos/cadastrarProduto">Cadastrar Produto</a></li>
             <li><span class="material-icons">person_add</span><a href="/fornecedores/cadastrarFornecedor">Cadastrar Fornecedor</a></li>
-            <li><span class="material-icons">inventory</span><a href="#">Controle de Inventário</a></li>
-            <li><span class="material-icons">history</span><a href="#">Histórico de Entradas e Saídas</a></li>
+            <li><span class="material-icons">inventory</span><a href="/estoque/controleInventario">Controle de Inventário</a></li>
+            <li><span class="material-icons">history</span><a href="/historico">Histórico de Entradas e Saídas</a></li>
             <li><span class="material-icons">list</span><a href="/produtos/listarProduto">Lista de Produtos Cadastrados</a></li>
             <li><span class="material-icons">group</span><a href="/fornecedores/listarFornecedor">Lista de Fornecedores Cadastrados</a></li>
         </ul>
@@ -36,11 +32,11 @@
         <div class="header-main">
                 <h1>Estoque Disponível</h1>
                 <div class="botoes-topo">
-                    <button class="botao-adicionar"onclick="window.location.href='/estoque/adicionarEstoque'">Adicionar Produto</button>
-                    <button class="botao-editar">Editar Produto</button>
-                    <button class="botao-apagar">Apagar Produto</button>
-                    <button class="botao-entrada">Registrar Entrada</button>
-                    <button class="botao-saida">Registrar Saída</button>
+                    <button class="botao-adicionar" onclick="window.location.href='/estoque/adicionarEstoque'">Adicionar Produto ao estoque</button>
+                    <button class="botao-editar">Editar Estoque</button>
+                    <button class="botao-apagar">Apagar Estoque</button>
+                    <button class="botao-entrada" onclick="window.location.href='/estoque/registrarEntrada'">Registrar Entrada</button>
+                    <button class="botao-saida" onclick="window.location.href='/estoque/registrarSaida'">Registrar Saída</button>
                 </div>
         </div>
 
@@ -48,25 +44,81 @@
             <thead>
             <tr>
                 <th>Produto</th>
+                <th>Preço</th>
                 <th>Quantidade</th>
-                <th>Preços</th>
                 <th>Data de Validade</th>
                 <th>Data de Entrada</th>
                 <th>Fornecedor</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item : ${estoque}">
-                <td th:text="${item.produto.nome}">Produto Exemplo</td>
-                <td th:text="${item.quantidade}">50</td>
-                <td th:text="${item.preco}">R$ 20,00</td>
-                <td th:text="${item.dataValidade}">01/01/2025</td>
-                <td th:text="${item.dataEntrada}">01/01/2024</td>
-                <td th:text="${item.fornecedor.nome}">Fornecedor Exemplo</td>
+            <tr th:each="estoque : ${estoques}" th:data-id="${estoque.id}">
+                <td th:text="${estoque.produto.nome}"></td>
+                <td th:text="${estoque.produto.preco}"></td>
+                <td th:text="${estoque.quantidade}"></td>
+                <td th:text="${#temporals.format(estoque.dataValidade, 'dd/MM/yyyy')}"></td>
+                <td th:text="${#temporals.format(estoque.dataEntrada, 'dd/MM/yyyy')}"></td>
+                <td>
+                    <th:block th:each="fornecedor : ${estoque.produto.fornecedores}">
+                        <span th:text="${fornecedor.nome}"></span><br/>
+                    </th:block>
+                </td>
             </tr>
             </tbody>
         </table>
     </main>
 </div>
+<script>
+    let produtoSelecionadoId = null;
+
+    document.querySelectorAll(".tabela-estoque tbody tr").forEach((linha) => {
+        linha.addEventListener("click", function () {
+            // Alterar estilo visual para marcar a linha selecionada
+            document.querySelectorAll(".tabela-estoque tbody tr").forEach((tr) =>
+                tr.classList.remove("selecionado")
+            );
+            this.classList.add("selecionado");
+
+            // Obter o ID do produto da linha
+            produtoSelecionadoId = this.getAttribute("data-id");
+        });
+    });
+
+    document.querySelector(".botao-editar").addEventListener("click", function () {
+    if (!produtoSelecionadoId) {
+        alert("Selecione um produto para editar.");
+        return;
+    }
+    window.location.href = `/estoque/editar/${produtoSelecionadoId}`;
+});
+
+document.querySelector(".botao-apagar").addEventListener("click", function () {
+    if (!produtoSelecionadoId) {
+        alert("Selecione um produto para apagar.");
+        return;
+    }
+
+    if (confirm("Tem certeza que deseja apagar este produto?")) {
+        fetch(`/estoque/apagar`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({ id: produtoSelecionadoId }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    alert("Produto apagado com sucesso.");
+                    window.location.reload();
+                } else {
+                    alert("Erro ao apagar o produto.");
+                }
+            })
+            .catch((error) => {
+                console.error("Erro ao apagar produto:", error);
+            });
+    }
+});
+</script>
 </body>
 </html>

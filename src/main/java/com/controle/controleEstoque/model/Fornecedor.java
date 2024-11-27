@@ -3,6 +3,9 @@ package com.controle.controleEstoque.model;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "fornecedores")
 public class Fornecedor {
@@ -22,6 +25,17 @@ public class Fornecedor {
 
     @Column(nullable = false)
     private String tipo;
+
+    @ManyToMany(mappedBy = "fornecedores")
+    private Set<Produto> produtos = new HashSet<>();
+
+    public Set<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(Set<Produto> produtos) {
+        this.produtos = produtos;
+    }
 
     public Long getId() {
         return id;

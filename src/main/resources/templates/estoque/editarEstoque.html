@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Estoque</title>
+    <link rel="stylesheet" href="/css/formulario.css">
 </head>
 <body>
+<div class="navbar">
+    <a href="/pagGeral">Voltar à Página Inicial</a>
+</div>
+<div class="container">
+    <h1>Editar Estoque</h1>
+    <form th:action="@{/estoque/editar}" method="post">
+        <input type="hidden" th:value="${estoque.id}" name="id" />
+        <label for="produto">Produto:</label>
+        <input type="text" id="produto" name="produto" th:value="${estoque.produto.nome}" readonly />
 
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" id="quantidade" name="quantidade" th:value="${estoque.quantidade}" required />
+
+        <label for="dataEntrada">Data de Entrada:</label>
+        <input type="date" id="dataEntrada" name="dataEntrada" th:value="${estoque.dataEntrada}" required />
+
+        <label for="dataValidade">Data de Validade:</label>
+        <input type="date" id="dataValidade" name="dataValidade" th:value="${estoque.dataValidade}" required />
+
+        <button type="submit" class="btn">Salvar Alterações</button>
+    </form>
+</div>
 </body>
 </html>

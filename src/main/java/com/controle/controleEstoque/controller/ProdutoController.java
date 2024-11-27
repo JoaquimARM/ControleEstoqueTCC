@@ -1,5 +1,6 @@
 package com.controle.controleEstoque.controller;
 
+import com.controle.controleEstoque.model.Fornecedor;
 import com.controle.controleEstoque.model.Produto;
 import com.controle.controleEstoque.service.FornecedorService;
 import com.controle.controleEstoque.service.ProdutoService;
@@ -7,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/produtos")
@@ -25,15 +30,18 @@ public class ProdutoController {
     // Exibir a página de cadastro de produto
     @GetMapping("/cadastrarProduto")
     public String mostrarFormularioCadastro(Model model) {
+        List<Fornecedor> fornecedores = fornecedorService.listarTodos();
         model.addAttribute("produto", new Produto()); // Adiciona um novo objeto Produto para o formulário
-        model.addAttribute("fornecedores", fornecedorService.listarTodos());
+        model.addAttribute("fornecedores", fornecedores);
         return "produtos/cadastrarProduto"; // Nome da página HTML do Thymeleaf (cadastrar_produto.html)
     }
 
     // Salvar o produto após o preenchimento do formulário
     @PostMapping("/salvar")
-    public String salvarProduto(@ModelAttribute Produto produto) {
-        produtoService.salvar(produto); // Salva o produto no banco de dados
+    public String salvarProduto(@ModelAttribute Produto produto, @RequestParam("fornecedores") List<Long> fornecedoresIds) {
+        Set<Fornecedor> fornecedorSet = new HashSet<>(fornecedorService.obterPorIds(fornecedoresIds));
+        produto.setFornecedores(fornecedorSet);
+        produtoService.salvar(produto);
         return "redirect:/pagGeral"; // Redireciona para a tela inicial após o cadastro
     }
 

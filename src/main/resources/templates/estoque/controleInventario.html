@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Inventário</title>
+    <link rel="stylesheet" href="/css/controleInventario.css">
+</head>
+<body>
+<div class="navbar">
+    <h2>Controle de Inventario</h2>
+    <a href="/pagGeral">Voltar à Página Inicial</a>
+</div>
+<div>
+    <h1>Controle de Inventário</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Estoque Mínimo</th>
+            <th>Data de Validade</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="estoque : ${estoques}">
+            <td th:text="${estoque.produto.nome}"></td>
+            <td th:text="${estoque.quantidade}"></td>
+            <td th:text="${estoque.estoqueMinimo}"></td>
+            <td th:text="${#temporals.format(estoque.dataValidade, 'dd/MM/yyyy')}"></td>
+            <td th:text="${estoque.status}"></td>
+            <td>
+                <button th:if="${estoque.quantidade <= estoque.estoqueMinimo}" style="color:red;">Abaixo do Estoque Mínimo</button>
+                <form method="post" th:action="@{/estoque/atualizarMinimo}">
+                    <label for="estoqueMinimoInput">Estoque Mínimo:</label>
+                    <input type="number" id="estoqueMinimoInput" name="estoqueMinimo" min="0" required>
+                    <input type="hidden" name="estoqueId" th:value="${estoque.id}">
+                    <button type="submit">Atualizar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

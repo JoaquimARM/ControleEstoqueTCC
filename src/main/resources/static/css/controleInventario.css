@@ -1,0 +1,141 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin: 20px 0;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #f9f9f9; /* Fundo branco acinzentado */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    text-align: center;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    color: #444; /* Preto suave */
+}
+
+table th {
+    background-color: #d6d6d6; /* Cabeçalho cinza claro */
+    color: #333; /* Letras do cabeçalho preto mais escuro */
+    text-transform: uppercase;
+}
+
+table tr:nth-child(even) {
+    background-color: #f0f0f0; /* Alternância de linhas com cinza mais claro */
+}
+
+table tr:nth-child(odd) {
+    background-color: #ffffff; /* Alternância de linhas com branco */
+}
+
+table tr:hover {
+    background-color: #e6e6e6; /* Cor de hover mais escura */
+}
+
+table td.status-normal {
+    color: green;
+    font-weight: bold;
+}
+
+table td.status-proximo {
+    color: orange;
+    font-weight: bold;
+}
+
+table td.status-vencido {
+    color: red;
+    font-weight: bold;
+}
+
+form {
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    font-size: 18px;
+    color: #555;
+}
+
+form select, form input[type="text"], form button {
+    margin-top: 10px;
+    padding: 10px;
+    width: 80%;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+a {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+a:hover {
+    color: #555;
+}
+
+.navbar {
+    background-color: #333;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar h2 {
+    color: #fff;
+    font-size: 20px;
+    margin: 0;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px;
+    background-color: #555;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar a:hover {
+    background-color: #333;
+}

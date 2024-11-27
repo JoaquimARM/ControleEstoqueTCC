@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico de Entradas e Saídas</title>
+    <link rel="stylesheet" href="/css/historico.css">
+</head>
+<body>
+<div class="navbar">
+    <a href="/pagGeral">Voltar à Página Inicial</a>
+</div>
+<div class="container">
+    <h1>Histórico de Entradas e Saídas</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Tipo</th>
+            <th>Data</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="historico : ${historicos}">
+            <td th:text="${historico.produto.nome}"></td>
+            <td th:text="${historico.quantidade}"></td>
+            <td th:text="${historico.tipo}"></td>
+            <td th:text="${historico.dataFormatada}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

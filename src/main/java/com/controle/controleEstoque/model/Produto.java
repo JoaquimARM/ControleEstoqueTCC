@@ -1,25 +1,38 @@
 package com.controle.controleEstoque.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(nullable = false)
     private String nome;
+    @Column(nullable = false)
     private BigDecimal preco;
-    //private LocalDate dataValidade;
 
+    @ManyToMany
+    @JoinTable(
+            name = "produto_fornecedor",
+            joinColumns = @JoinColumn(name = "produto_id"),
+            inverseJoinColumns = @JoinColumn(name = "fornecedor_id")
+    )
+    private Set<Fornecedor> fornecedores = new HashSet<>();
 
-    // Getters e Setters
+    public Set<Fornecedor> getFornecedores() {
+        return fornecedores;
+    }
+
+    public void setFornecedores(Set<Fornecedor> fornecedores) {
+        this.fornecedores = fornecedores;
+    }
+// Getters e Setters
 
     public BigDecimal getPreco() {
         return preco;

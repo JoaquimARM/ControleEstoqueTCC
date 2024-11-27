@@ -1,63 +1,86 @@
 package com.controle.controleEstoque.service;
 
 import com.controle.controleEstoque.model.Estoque;
-import com.controle.controleEstoque.model.Fornecedor;
+import com.controle.controleEstoque.model.Historico;
 import com.controle.controleEstoque.model.Produto;
 import com.controle.controleEstoque.repository.EstoqueRepository;
 import com.controle.controleEstoque.repository.ProdutoRepository;
-import com.controle.controleEstoque.repository.FornecedorRepository;
+import com.controle.controleEstoque.repository.HistoricoRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EstoqueService {
-
+    @Autowired
     private final EstoqueRepository estoqueRepository;
-    private final ProdutoRepository produtoRepository;
-    private final FornecedorRepository fornecedorRepository;
 
-    public EstoqueService(EstoqueRepository estoqueRepository, ProdutoRepository produtoRepository, FornecedorRepository fornecedorRepository) {
+    @Autowired
+    private ProdutoRepository produtoRepository;
+
+    @Autowired
+    private HistoricoRepository historicoRepository;
+
+    @Autowired
+    public EstoqueService(EstoqueRepository estoqueRepository) {
         this.estoqueRepository = estoqueRepository;
-        this.produtoRepository = produtoRepository;
-        this.fornecedorRepository = fornecedorRepository;
-    }
-
-    public List<Estoque> listarTodos() {
-        return estoqueRepository.findAll();
     }
 
     public void salvar(Estoque estoque) {
         estoqueRepository.save(estoque);
     }
 
-    public Optional<Estoque> obterPorId(Long id) {
-        return estoqueRepository.findById(id);
+    public List<Estoque> listarTodos() {
+        return estoqueRepository.findAll();
     }
 
-    public void atualizar(Long id, Estoque estoqueAtualizado) {
-        Optional<Estoque> estoqueExistente = obterPorId(id);
-        if (estoqueExistente.isPresent()) {
-            Estoque estoque = estoqueExistente.get();
-            estoque.setQuantidade(estoqueAtualizado.getQuantidade());
-            estoque.setDataValidade(estoqueAtualizado.getDataValidade());
-            estoque.setUltimaDataEntrada(estoqueAtualizado.getUltimaDataEntrada());
-            estoque.setFornecedor(estoqueAtualizado.getFornecedor());
-            estoque.setProduto(estoqueAtualizado.getProduto());
-            estoqueRepository.save(estoque);
+    @Transactional
+    public void adicionarQuantidade(Long produtoId, int quantidade) {
+        Estoque estoque = estoqueRepository.findById(produtoId)
+                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado no estoque."));
+
+        // Atualizar quantidade no estoque
+        estoque.setQuantidade(estoque.getQuantidade() + quantidade);
+        estoqueRepository.save(estoque);
+
+        // Salvar no histórico
+        Historico historico = new Historico();
+        historico.setProduto(estoque.getProduto());
+        historico.setQuantidade(quantidade);
+        historico.setTipo("Entrada"); // Define que foi uma entrada
+        historico.setData(LocalDate.now());
+        historicoRepository.save(historico);
+    }
+
+    public void removerQuantidade(Long produtoId, int quantidade, String tipo) {
+        Estoque estoque = estoqueRepository.findById(produtoId)
+                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado no estoque."));
+
+        if (estoque.getQuantidade() < quantidade) {
+            throw new IllegalArgumentException("Quantidade insuficiente no estoque.");
         }
+
+        // Atualizar quantidade no estoque
+        estoque.setQuantidade(estoque.getQuantidade() - quantidade);
+        estoqueRepository.save(estoque);
+
+        // Salvar no histórico
+        Historico historico = new Historico();
+        historico.setProduto(estoque.getProduto());
+        historico.setQuantidade(quantidade);
+        historico.setTipo(tipo); // Define o tipo como "Venda" ou "Perda"
+        historico.setData(LocalDate.now());
+        historicoRepository.save(historico);
+    }
+    public Produto obterProdutoPorId(Long produtoId) {
+        return produtoRepository.findById(produtoId)
+                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
     }
 
-    public void apagar(Long id) {
-        estoqueRepository.deleteById(id);
-    }
 
-    public List<Produto> listarProdutos() {
-        return produtoRepository.findAll();
-    }
-
-    public List<Fornecedor> listarFornecedores() {
-        return fornecedorRepository.findAll();
-    }
 }

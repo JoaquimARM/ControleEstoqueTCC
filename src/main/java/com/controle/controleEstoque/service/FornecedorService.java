@@ -25,6 +25,10 @@ public class FornecedorService {
         return fornecedorRepository.findAll();
     }
 
+    public List<Fornecedor> obterPorIds(List<Long> ids) {
+        return fornecedorRepository.findAllById(ids);
+    }
+
     public void deletar(Long id) {
         fornecedorRepository.deleteById(id);
     }

@@ -84,3 +84,71 @@ button[type="submit"].btn {
 button[type="submit"].btn:hover {
     background-color: #0056b3;
 }
+
+ul {
+    list-style-type: none; /* Remove os marcadores padrão */
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+
+ul li {
+    background-color: #f4f4f4; /* Fundo cinza claro */
+    border: 1px solid #ddd; /* Borda fina */
+    border-radius: 4px; /* Borda arredondada */
+    padding: 8px 12px; /* Espaçamento interno */
+    margin-bottom: 5px; /* Espaçamento entre os itens */
+    font-size: 14px; /* Tamanho da fonte */
+    color: #333; /* Cor do texto */
+}
+
+/* Estilo para o rótulo */
+label {
+    display: block; /* Ocupa toda a largura */
+    font-weight: bold; /* Negrito */
+    margin-bottom: 5px; /* Espaçamento abaixo do rótulo */
+    color: #555; /* Cor do texto */
+}
+
+/* Estilo para o select múltiplo */
+select {
+    width: 100%; /* Ocupa toda a largura do container */
+    padding: 8px; /* Espaçamento interno */
+    border: 1px solid #ccc; /* Borda */
+    border-radius: 4px; /* Borda arredondada */
+    background-color: #fff; /* Fundo branco */
+    font-size: 14px; /* Tamanho da fonte */
+    color: #333; /* Cor do texto */
+    height: auto; /* Ajusta a altura dinamicamente */
+    min-height: 100px; /* Altura mínima */
+    resize: vertical; /* Permite redimensionar verticalmente */
+}
+
+/* Efeito de foco */
+select:focus {
+    border-color: #007bff; /* Cor da borda ao focar */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Efeito de sombra */
+    outline: none; /* Remove o contorno padrão */
+}
+
+@media (max-width: 480px) {
+    form {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+}
+
+a {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
+}
