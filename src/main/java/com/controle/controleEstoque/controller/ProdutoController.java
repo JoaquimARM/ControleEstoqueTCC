@@ -55,16 +55,20 @@ public class ProdutoController {
     // Editar produto - Exibir formulário com dados do produto específico
     @GetMapping("/editar/{id}")
     public String editarProduto(@PathVariable("id") Long id, Model model) {
-        Produto produto = produtoService.obterPorId(id); // Busca o produto pelo ID
-        model.addAttribute("produto", produto); // Passa o produto para o formulário de edição
+        Produto produto = produtoService.obterPorId(id);
+        List<Fornecedor> fornecedores = fornecedorService.listarTodos();
+        model.addAttribute("produto", produto);
+        model.addAttribute("fornecedores", fornecedores);
         return "produtos/editarProduto"; // Nome da página HTML do Thymeleaf (editar_produto.html)
     }
 
     // Salvar as alterações do produto após a edição
     @PostMapping("/atualizar/{id}")
-    public String atualizarProduto(@PathVariable("id") Long id, @ModelAttribute Produto produtoAtualizado) {
-        produtoService.atualizar(id, produtoAtualizado); // Atualiza o produto no banco de dados
-        return "redirect:/produtos/listarProduto"; // Redireciona para a lista de produtos
+    public String atualizarProduto(@PathVariable Long id, @ModelAttribute Produto produtoAtualizado, @RequestParam List<Long> fornecedoresIds) {
+        Set<Fornecedor> fornecedorSet = new HashSet<>(fornecedorService.obterPorIds(fornecedoresIds));
+        produtoAtualizado.setFornecedores(fornecedorSet);
+        produtoService.atualizar(id, produtoAtualizado);
+        return "redirect:/produtos/listarProduto";
     }
 
     // Apagar um produto

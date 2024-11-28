@@ -151,3 +151,23 @@ h1 {
     background-color: #f0f8ff;
     color: #000;
 }
+.logo {
+    font-size: 100px; /* Tamanho do ícone */
+    color: #808080; /* Cor azul padrão */
+    vertical-align: middle; /* Alinha ao centro verticalmente */
+}
+
+header .logout-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+header .logout-button:hover {
+    background-color: #0056b3;
+}

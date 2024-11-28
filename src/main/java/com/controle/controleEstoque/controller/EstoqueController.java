@@ -72,13 +72,14 @@ public class EstoqueController {
     @PostMapping("/registrarEntrada")
     public String registrarEntrada(@RequestParam Long produtoId, @RequestParam int quantidade, RedirectAttributes redirectAttributes) {
         try {
-            estoqueService.adicionarQuantidade(produtoId, quantidade);
+            estoqueService.registrarEntrada(produtoId, quantidade);
             redirectAttributes.addFlashAttribute("mensagem", "Entrada registrada com sucesso!");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("erro", "Erro ao registrar entrada: " + e.getMessage());
         }
         return "redirect:/pagGeral";
     }
+
 
     @GetMapping("/registrarSaida")
     public String exibirPaginaRegistrarSaida(Model model) {
@@ -90,13 +91,14 @@ public class EstoqueController {
     public String registrarSaida(@RequestParam Long produtoId, @RequestParam int quantidade,
                                  @RequestParam String tipo, RedirectAttributes redirectAttributes) {
         try {
-            estoqueService.removerQuantidade(produtoId, quantidade, tipo);
+            estoqueService.registrarSaida(produtoId, quantidade, tipo);
             redirectAttributes.addFlashAttribute("mensagem", "Saída registrada com sucesso!");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("erro", "Erro ao registrar saída: " + e.getMessage());
         }
         return "redirect:/pagGeral";
     }
+
     @GetMapping("/editar/{id}")
     public String editarEstoque(@PathVariable Long id, Model model) {
         Optional<Estoque> estoqueOpt = estoqueRepository.findById(id);
@@ -111,7 +113,7 @@ public class EstoqueController {
     // Salvar edição (POST)
     @PostMapping("/editar")
     public String salvarEdicaoEstoque(@ModelAttribute Estoque estoque) {
-        estoqueRepository.save(estoque);
+        estoqueService.atualizar(estoque);
         return "redirect:/pagGeral";
     }
 

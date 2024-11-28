@@ -10,6 +10,7 @@
 </div>
 <div class="container">
     <h1>Adicionar Produto ao Estoque</h1>
+    <p>Não é possivel adicionar dois produtos iguais.</p>
     <form th:action="@{/estoque/salvar}" method="post">
         <label for="produtoId">Produto:</label>
         <select id="produtoId" name="produtoId">
@@ -30,5 +31,16 @@
         <button type="submit" class="btn">Adicionar ao Estoque</button>
     </form>
 </div>
+<script>
+    document.querySelector("form").addEventListener("submit", function (event) {
+        const dataEntrada = new Date(document.getElementById("dataEntrada").value);
+        const dataValidade = new Date(document.getElementById("dataValidade").value);
+
+        if (dataEntrada > dataValidade) {
+            event.preventDefault(); // Impede o envio do formulário
+            alert("A data de entrada não pode ser posterior à data de validade!");
+        }
+    });
+</script>
 </body>
 </html>

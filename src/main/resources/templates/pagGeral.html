@@ -11,8 +11,13 @@
 <body>
 <header>
     <div class="logo-nome">
-
+        <span class="material-icons logo">warehouse</span>
         <span class="titulo-site">Stock-Up</span>
+    </div>
+    <div>
+        <form th:action="@{/logout}" method="post" style="display: inline;">
+            <button type="submit" class="logout-button">Logout</button>
+        </form>
     </div>
 </header>
 
@@ -31,6 +36,7 @@
     <main>
         <div class="header-main">
                 <h1>Estoque Disponível</h1>
+
                 <div class="botoes-topo">
                     <button class="botao-adicionar" onclick="window.location.href='/estoque/adicionarEstoque'">Adicionar Produto ao estoque</button>
                     <button class="botao-editar">Editar Estoque</button>
@@ -66,6 +72,8 @@
             </tr>
             </tbody>
         </table>
+        <br>
+        <p>Selecione um produto na tabela e clique no botão desejado.</p>
     </main>
 </div>
 <script>

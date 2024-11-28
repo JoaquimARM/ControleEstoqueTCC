@@ -6,25 +6,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
+@RequestMapping("/historico")
 public class HistoricoController {
 
-    @Autowired
-    private HistoricoRepository historicoRepository;
+    private final HistoricoRepository historicoRepository;
 
-    @GetMapping("/historico")
+    public HistoricoController(HistoricoRepository historicoRepository) {
+        this.historicoRepository = historicoRepository;
+    }
+
+    @GetMapping
     public String exibirHistorico(Model model) {
-        List<Historico> historicos = historicoRepository.findAll();
-
-        historicos.forEach(h -> {
-            h.setDataFormatada(h.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        });
-
-        model.addAttribute("historicos", historicos);
+        List<Historico> historico = historicoRepository.findAllByOrderByDataDesc();
+        model.addAttribute("historicos", historico);
         return "historico";
     }
 }

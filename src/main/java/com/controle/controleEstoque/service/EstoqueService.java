@@ -39,41 +39,38 @@ public class EstoqueService {
         return estoqueRepository.findAll();
     }
 
-    @Transactional
-    public void adicionarQuantidade(Long produtoId, int quantidade) {
-        Estoque estoque = estoqueRepository.findById(produtoId)
-                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado no estoque."));
+    public void registrarEntrada(Long produtoId, int quantidade) {
+        Estoque estoque = estoqueRepository.findByProdutoId(produtoId)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado no estoque"));
 
-        // Atualizar quantidade no estoque
-        estoque.setQuantidade(estoque.getQuantidade() + quantidade);
+        estoque.setQuantidade(estoque.getQuantidade() + quantidade); // Atualiza a quantidade
         estoqueRepository.save(estoque);
 
-        // Salvar no histórico
+        // Adiciona um registro no histórico
         Historico historico = new Historico();
         historico.setProduto(estoque.getProduto());
         historico.setQuantidade(quantidade);
-        historico.setTipo("Entrada"); // Define que foi uma entrada
+        historico.setTipo("Entrada");
         historico.setData(LocalDate.now());
         historicoRepository.save(historico);
     }
 
-    public void removerQuantidade(Long produtoId, int quantidade, String tipo) {
-        Estoque estoque = estoqueRepository.findById(produtoId)
-                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado no estoque."));
+    public void registrarSaida(Long produtoId, int quantidade, String tipo) {
+        Estoque estoque = estoqueRepository.findByProdutoId(produtoId)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado no estoque"));
 
         if (estoque.getQuantidade() < quantidade) {
-            throw new IllegalArgumentException("Quantidade insuficiente no estoque.");
+            throw new RuntimeException("Quantidade insuficiente no estoque");
         }
 
-        // Atualizar quantidade no estoque
-        estoque.setQuantidade(estoque.getQuantidade() - quantidade);
+        estoque.setQuantidade(estoque.getQuantidade() - quantidade); // Atualiza a quantidade
         estoqueRepository.save(estoque);
 
-        // Salvar no histórico
+        // Adiciona um registro no histórico
         Historico historico = new Historico();
         historico.setProduto(estoque.getProduto());
         historico.setQuantidade(quantidade);
-        historico.setTipo(tipo); // Define o tipo como "Venda" ou "Perda"
+        historico.setTipo("Saída - " + tipo); // Indica se foi venda ou perda
         historico.setData(LocalDate.now());
         historicoRepository.save(historico);
     }
@@ -82,5 +79,15 @@ public class EstoqueService {
                 .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
     }
 
+    public void atualizar(Estoque estoque) {
+        Estoque estoqueExistente = estoqueRepository.findById(estoque.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Estoque não encontrado!"));
+
+        estoqueExistente.setQuantidade(estoque.getQuantidade());
+        estoqueExistente.setDataEntrada(estoque.getDataEntrada());
+        estoqueExistente.setDataValidade(estoque.getDataValidade());
+
+        estoqueRepository.save(estoqueExistente);
+    }
 
 }

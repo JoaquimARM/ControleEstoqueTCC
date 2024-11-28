@@ -18,6 +18,7 @@ public class Historico {
     private String tipo; // "Entrada" ou "Saída"
     private Integer quantidade;
     private String motivo; // Apenas para saídas: "Venda" ou "Perda"
+    @Column(name = "data", nullable = false)
     private LocalDate data;
 
     @Transient

@@ -12,22 +12,34 @@
 </div>
 <div class="container">
     <h1>Editar Estoque</h1>
-    <form th:action="@{/estoque/editar}" method="post">
-        <input type="hidden" th:value="${estoque.id}" name="id" />
+    <form th:action="@{/estoque/editar}" method="post" th:object="${estoque}">
+        <input type="hidden" th:field="*{id}" />
+
         <label for="produto">Produto:</label>
-        <input type="text" id="produto" name="produto" th:value="${estoque.produto.nome}" readonly />
+        <input type="text" id="produto" th:value="${estoque.produto.nome}" readonly />
 
         <label for="quantidade">Quantidade:</label>
-        <input type="number" id="quantidade" name="quantidade" th:value="${estoque.quantidade}" required />
+        <input type="number" id="quantidade" th:field="*{quantidade}" required />
 
         <label for="dataEntrada">Data de Entrada:</label>
-        <input type="date" id="dataEntrada" name="dataEntrada" th:value="${estoque.dataEntrada}" required />
+        <input type="date" id="dataEntrada" th:field="*{dataEntrada}" required />
 
         <label for="dataValidade">Data de Validade:</label>
-        <input type="date" id="dataValidade" name="dataValidade" th:value="${estoque.dataValidade}" required />
+        <input type="date" id="dataValidade" th:field="*{dataValidade}" required />
 
         <button type="submit" class="btn">Salvar Alterações</button>
     </form>
 </div>
+<script>
+    document.querySelector("form").addEventListener("submit", function (event) {
+        const dataEntrada = new Date(document.getElementById("dataEntrada").value);
+        const dataValidade = new Date(document.getElementById("dataValidade").value);
+
+        if (dataEntrada > dataValidade) {
+            event.preventDefault(); // Impede o envio do formulário
+            alert("A data de entrada não pode ser posterior à data de validade!");
+        }
+    });
+</script>
 </body>
 </html>

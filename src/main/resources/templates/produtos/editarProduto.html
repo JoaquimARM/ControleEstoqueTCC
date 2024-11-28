@@ -17,9 +17,14 @@
         <label for="preco">Preço</label>
         <input type="text" id="preco" name="preco" th:value="${produto.preco}" required>
 
-
-        <label for="fornecedor">Fornecedor</label>
-        <input type="text" id="fornecedor" name="fornecedor" th:value="${produto.fornecedor}" required>
+        <label for="fornecedores">Fornecedores</label>
+        <select id="fornecedores" name="fornecedoresIds" multiple required>
+            <option th:each="fornecedor : ${fornecedores}"
+                    th:value="${fornecedor.id}"
+                    th:text="${fornecedor.nome}"
+                    th:selected="${produto.fornecedores.contains(fornecedor)}">
+            </option>
+        </select>
 
         <button type="submit" class="btn">Salvar</button>
     </form>

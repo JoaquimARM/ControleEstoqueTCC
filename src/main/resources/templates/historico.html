@@ -26,7 +26,7 @@
             <td th:text="${historico.produto.nome}"></td>
             <td th:text="${historico.quantidade}"></td>
             <td th:text="${historico.tipo}"></td>
-            <td th:text="${historico.dataFormatada}"></td>
+            <td th:text="${#temporals.format(historico.data, 'dd/MM/yyyy')}"></td>
         </tr>
         </tbody>
     </table>
