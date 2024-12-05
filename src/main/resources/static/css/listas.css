@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f3f4f6;
+    background-color: #eaf0f6;
     margin: 0;
     padding: 0;
 }
@@ -148,4 +148,22 @@ select:focus {
     border-color: #007bff; /* Cor da borda ao focar */
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Efeito de sombra */
     outline: none; /* Remove o contorno padrão */
+}
+
+.mensagem-sucesso {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.mensagem-erro {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin-bottom: 15px;
 }

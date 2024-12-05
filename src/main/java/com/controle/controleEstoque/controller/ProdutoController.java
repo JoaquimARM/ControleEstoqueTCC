@@ -5,9 +5,11 @@ import com.controle.controleEstoque.model.Produto;
 import com.controle.controleEstoque.service.FornecedorService;
 import com.controle.controleEstoque.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashSet;
 import java.util.List;
@@ -64,17 +66,24 @@ public class ProdutoController {
 
     // Salvar as alterações do produto após a edição
     @PostMapping("/atualizar/{id}")
-    public String atualizarProduto(@PathVariable Long id, @ModelAttribute Produto produtoAtualizado, @RequestParam List<Long> fornecedoresIds) {
+    public String atualizarProduto(@PathVariable("id") Long id,
+                                   @ModelAttribute Produto produto,
+                                   @RequestParam("fornecedoresIds") List<Long> fornecedoresIds) {
         Set<Fornecedor> fornecedorSet = new HashSet<>(fornecedorService.obterPorIds(fornecedoresIds));
-        produtoAtualizado.setFornecedores(fornecedorSet);
-        produtoService.atualizar(id, produtoAtualizado);
-        return "redirect:/produtos/listarProduto";
+        produto.setFornecedores(fornecedorSet);
+        produtoService.atualizar(id, produto);
+        return "redirect:/produtos/listarProduto"; // Redireciona para a lista de produtos
     }
 
     // Apagar um produto
     @GetMapping("/apagar/{id}")
-    public String apagarProduto(@PathVariable("id") Long id) {
-        produtoService.apagar(id); // Remove o produto do banco de dados
+    public String apagarProduto(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        try {
+            produtoService.apagar(id);
+            redirectAttributes.addFlashAttribute("mensagem", "Produto apagado com sucesso.");
+        } catch (DataIntegrityViolationException e) {
+            redirectAttributes.addFlashAttribute("erro", "Não é possível apagar o produto, pois ele está associado a outros registros.");
+        }
         return "redirect:/produtos/listarProduto"; // Redireciona para a lista de produtos
     }
 }

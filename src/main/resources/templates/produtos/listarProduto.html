@@ -9,6 +9,12 @@
     <h2>Listagem de Produtos</h2>
     <a href="/pagGeral">Voltar à Página Inicial</a>
 </div>
+<div th:if="${mensagem}" class="mensagem-sucesso">
+    <p th:text="${mensagem}"></p>
+</div>
+<div th:if="${erro}" class="mensagem-erro">
+    <p th:text="${erro}"></p>
+</div>
 <div class="table-container">
     <h1>Produtos Cadastrados</h1>
     <div class="button-group">

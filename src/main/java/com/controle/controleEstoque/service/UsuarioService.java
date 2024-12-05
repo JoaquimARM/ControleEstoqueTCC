@@ -15,18 +15,18 @@ import com.controle.controleEstoque.repository.UsuarioRepository;
 @Service
 public class UsuarioService implements UserDetailsService {
 
-	@Autowired
+    @Autowired
     private UsuarioRepository usuarioRepository;
 
 
-	public void salvar(Usuario usuario) {
-	    if (usuarioRepository.findByEmail(usuario.getEmail()) != null) {
-	        throw new RuntimeException("Email já está em uso");
-	    }
-	    usuarioRepository.save(usuario);
-		    
-	}
-	
+    public void salvar(Usuario usuario) {
+        if (usuarioRepository.findByEmail(usuario.getEmail()) != null) {
+            throw new RuntimeException("Email já está em uso");
+        }
+        usuarioRepository.save(usuario);
+
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepository.findByEmail(email);

@@ -6,11 +6,11 @@
 </head>
 <body>
 <header>
-    <h1>Editar Produto</h1>
+    <h1>Editar Fornecedor</h1>
 </header>
 
 <div class="container">
-    <form th:action="@{/fornecedores/atualizar/{id}(id=${fornecedor.id})}" th:object="${fornecedor}" method="post">
+    <form th:action="@{/fornecedores/atualizar/{id}(id=${fornecedor.id})}" th:object="${fornecedor}" method="post" onsubmit="validarCNPJ(event)">
         <label for="nome">Nome</label>
         <input type="text" id="nome" name="nome" th:value="${fornecedor.nome}" required>
 
@@ -18,7 +18,8 @@
         <input type="text" id="endereco" name="endereco" th:value="${fornecedor.endereco}" required>
 
         <label for="cnpj">CNPJ</label>
-        <input type="text" id="cnpj" name="cnpj" th:value="${fornecedor.cnpj}" required>
+        <input type="text" id="cnpj" name="cnpj" th:value="${fornecedor.cnpj}" maxlength="18" placeholder="Digite apenas números" required>
+        <p id="mensagemErro" style="color: red; font-size: 14px;"></p>
 
         <label for="tipo">Tipo</label>
         <input type="text" id="tipo" name="tipo" th:value="${fornecedor.tipo}" required>
@@ -26,5 +27,50 @@
         <button type="submit" class="btn">Salvar</button>
     </form>
 </div>
+<script>
+    function validarCNPJ(event) {
+        const cnpjInput = document.getElementById("cnpj");
+        const mensagemErro = document.getElementById("mensagemErro");
+        const cnpj = cnpjInput.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+
+        if (!cnpjValido(cnpj)) {
+            mensagemErro.textContent = "CNPJ inválido! Certifique-se de que possui 14 números e é válido.";
+            event.preventDefault(); // Impede o envio do formulário
+        } else {
+            mensagemErro.textContent = ""; // Remove a mensagem de erro
+        }
+    }
+
+    function cnpjValido(cnpj) {
+        if (cnpj.length !== 14) return false;
+
+        let tamanho = cnpj.length - 2;
+        let numeros = cnpj.substring(0, tamanho);
+        let digitos = cnpj.substring(tamanho);
+        let soma = 0;
+        let pos = tamanho - 7;
+
+        for (let i = tamanho; i >= 1; i--) {
+            soma += numeros.charAt(tamanho - i) * pos--;
+            if (pos < 2) pos = 9;
+        }
+
+        let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+        if (resultado !== parseInt(digitos.charAt(0))) return false;
+
+        tamanho += 1;
+        numeros = cnpj.substring(0, tamanho);
+        soma = 0;
+        pos = tamanho - 7;
+
+        for (let i = tamanho; i >= 1; i--) {
+            soma += numeros.charAt(tamanho - i) * pos--;
+            if (pos < 2) pos = 9;
+        }
+
+        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+        return resultado === parseInt(digitos.charAt(1));
+    }
+</script>
 </body>
 </html>

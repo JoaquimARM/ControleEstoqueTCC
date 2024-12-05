@@ -41,11 +41,17 @@ public class UsuarioController {
 
     @PostMapping("/registrar")
     public String cadastrarUsuario(@ModelAttribute Usuario usuario, Model modelo) {
-        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
-        usuarioService.salvar(usuario);
+        try {
+            // Tenta salvar o usuário, valida o e-mail no serviço
+            usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+            usuarioService.salvar(usuario);
+        } catch (RuntimeException e) {
+            // Captura a exceção de e-mail duplicado e adiciona mensagem de erro ao modelo
+            modelo.addAttribute("mensagemErro", "Este e-mail já está em uso. Por favor, escolha outro.");
+            return "cadastro/registrar"; // Nome da página de cadastro
+        }
         return "redirect:/login";
     }
-
     @GetMapping("/login")
     public String exibirFormularioLogin() {
         return "cadastro/login";

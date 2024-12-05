@@ -8,10 +8,17 @@
 </head>
 <body>
 <div class="navbar">
+    <h2>Histórico</h2>
     <a href="/pagGeral">Voltar à Página Inicial</a>
 </div>
 <div class="container">
     <h1>Histórico de Entradas e Saídas</h1>
+    <div class="botoes-topo">
+        <form th:action="@{/historico/limpar}" method="post" onsubmit="return confirm('Tem certeza que deseja limpar todo o histórico?');" style="display: inline;">
+            <button type="submit" class="btn-limpar">Limpar Histórico</button>
+        </form>
+        <button class="btn-apagar" id="apagar-linha">Apagar Seleção</button>
+    </div>
     <table>
         <thead>
         <tr>
@@ -22,7 +29,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="historico : ${historicos}">
+        <tr th:each="historico : ${historicos}" th:data-id="${historico.id}">
             <td th:text="${historico.produto.nome}"></td>
             <td th:text="${historico.quantidade}"></td>
             <td th:text="${historico.tipo}"></td>
@@ -31,5 +38,49 @@
         </tbody>
     </table>
 </div>
+<script>
+    let historicoSelecionadoId = null;
+
+// Selecionar linha da tabela
+document.querySelectorAll("tbody tr").forEach((linha) => {
+    linha.addEventListener("click", function () {
+        // Limpar seleção anterior
+        document.querySelectorAll("tbody tr").forEach((tr) => tr.classList.remove("selecionado"));
+
+        // Marcar a linha atual como selecionada
+        this.classList.add("selecionado");
+
+        // Capturar o ID da linha selecionada
+        historicoSelecionadoId = this.getAttribute("data-id");
+        console.log("ID selecionado:", historicoSelecionadoId); // Debug: Confirme no console
+    });
+});
+
+// Botão de apagar linha
+document.getElementById("apagar-linha").addEventListener("click", function () {
+    if (!historicoSelecionadoId) {
+        alert("Selecione uma linha do histórico para apagar.");
+        return;
+    }
+
+    if (confirm("Tem certeza que deseja apagar esta linha do histórico?")) {
+        fetch(`/historico/apagar/${historicoSelecionadoId}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    alert("Linha do histórico apagada com sucesso.");
+                    window.location.reload();
+                } else {
+                    alert("Erro ao apagar a linha do histórico.");
+                }
+            })
+            .catch((error) => console.error("Erro ao apagar linha do histórico:", error));
+    }
+});
+</script>
 </body>
 </html>

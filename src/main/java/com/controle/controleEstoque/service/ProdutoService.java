@@ -26,12 +26,15 @@ public class ProdutoService {
     }
 
     public void atualizar(Long id, Produto produtoAtualizado) {
-        Produto produtoExistente = obterPorId(id);
-        if (produtoExistente != null) {
-            produtoExistente.setNome(produtoAtualizado.getNome());
-            produtoExistente.setPreco(produtoAtualizado.getPreco());
-            produtoRepository.save(produtoExistente);
-        }
+        Produto produtoExistente = produtoRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("Produto não encontrado.")
+        );
+
+        // Atualiza os campos do produto
+        produtoExistente.setNome(produtoAtualizado.getNome());
+        produtoExistente.setPreco(produtoAtualizado.getPreco());
+        produtoExistente.setFornecedores(produtoAtualizado.getFornecedores());
+        produtoRepository.save(produtoExistente);
     }
 
     public void apagar(Long id) {

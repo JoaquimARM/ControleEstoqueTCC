@@ -2,9 +2,11 @@ package com.controle.controleEstoque.controller;
 
 import com.controle.controleEstoque.model.Fornecedor;
 import com.controle.controleEstoque.service.FornecedorService;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/fornecedores")
@@ -23,8 +25,14 @@ public class FornecedorController {
     }
 
     @PostMapping("/salvarFornecedor")
-    public String salvarFornecedor(@ModelAttribute Fornecedor fornecedor) {
-        fornecedorService.salvar(fornecedor);
+    public String salvarFornecedor(@ModelAttribute Fornecedor fornecedor, RedirectAttributes redirectAttributes) {
+        try {
+            fornecedorService.salvar(fornecedor); // Chama o método com validação
+            redirectAttributes.addFlashAttribute("mensagem", "Fornecedor cadastrado com sucesso!");
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("erro", "Erro ao cadastrar fornecedor: " + e.getMessage());
+            return "redirect:/fornecedores/cadastrarFornecedor";
+        }
         return "redirect:/fornecedores/listarFornecedor";
     }
 
@@ -48,8 +56,13 @@ public class FornecedorController {
     }
 
     @GetMapping("/deletar/{id}")
-    public String deletarFornecedor(@PathVariable Long id) {
-        fornecedorService.deletar(id);
+    public String deletarFornecedor(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            fornecedorService.deletar(id);
+            redirectAttributes.addFlashAttribute("mensagem", "Fornecedor apagado com sucesso.");
+        } catch (DataIntegrityViolationException e) {
+            redirectAttributes.addFlashAttribute("erro", "Não é possível apagar o fornecedor, pois ele está associado a um ou mais produtos.");
+        }
         return "redirect:/fornecedores/listarFornecedor";
     }
 }

@@ -3,6 +3,8 @@
 <head>
     <title>Editar Produto</title>
     <link rel="stylesheet" href="/css/formulario.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 </head>
 <body>
 <header>
@@ -17,17 +19,26 @@
         <label for="preco">Preço</label>
         <input type="text" id="preco" name="preco" th:value="${produto.preco}" required>
 
-        <label for="fornecedores">Fornecedores</label>
-        <select id="fornecedores" name="fornecedoresIds" multiple required>
-            <option th:each="fornecedor : ${fornecedores}"
-                    th:value="${fornecedor.id}"
-                    th:text="${fornecedor.nome}"
-                    th:selected="${produto.fornecedores.contains(fornecedor)}">
-            </option>
-        </select>
+        <div>
+            <label for="fornecedores">Fornecedores:</label>
+            <select id="fornecedores" name="fornecedoresIds" multiple class="custom-select">
+                <th:block th:each="fornecedor : ${fornecedores}">
+                    <option th:value="${fornecedor.id}" th:text="${fornecedor.nome}"></option>
+                </th:block>
+            </select>
+        </div>
 
         <button type="submit" class="btn">Salvar</button>
     </form>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        new Choices("#fornecedores", {
+            removeItemButton: true,
+            searchEnabled: true,
+            placeholderValue: "Selecione os fornecedores",
+        });
+    });
+</script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f3f4f6;
+    background-color: #eaf0f6;
     margin: 0;
     padding: 0;
 }
@@ -151,4 +151,32 @@ a {
 
 a:hover {
     color: #0056b3;
+}
+
+.custom-select {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    color: #333;
+    appearance: none;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+}
+
+.custom-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.custom-select[multiple] {
+    height: auto;
+    background: #fff;
+    overflow-y: auto;
 }

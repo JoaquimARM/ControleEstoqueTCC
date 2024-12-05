@@ -8,7 +8,7 @@
 body {
     display: flex;
     flex-direction: column;
-    background-color: #f5f5f5;
+    background-color: #eaf0f6;
 }
 
 header {
@@ -16,7 +16,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
-    background-color: #333;
+    background-color: #1c1c1c;
     color: white;
     position: fixed;
     top: 0;
@@ -76,7 +76,7 @@ header {
 }
 
 .material-icons {
-    color: #1e90ff;
+    color: #ffffff;
     font-size: 20px;
 }
 
@@ -153,7 +153,7 @@ h1 {
 }
 .logo {
     font-size: 100px; /* Tamanho do ícone */
-    color: #808080; /* Cor azul padrão */
+    color: #ffffff; /* Cor azul padrão */
     vertical-align: middle; /* Alinha ao centro verticalmente */
 }
 

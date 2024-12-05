@@ -10,11 +10,17 @@
     <h2>Listagem de Fornecedores</h2>
     <a href="/pagGeral">Voltar à Página Inicial</a>
 </div>
+<div th:if="${mensagem}" class="mensagem-sucesso">
+    <p th:text="${mensagem}"></p>
+</div>
+<div th:if="${erro}" class="mensagem-erro">
+    <p th:text="${erro}"></p>
+</div>
 
 <div class="table-container">
     <h1>Fornecedores Cadastrados</h1>
     <div class="button-group">
-        <a href="/fornecedores/cadastrarFornecedores">
+        <a href="/fornecedores/cadastrarFornecedor">
             <button id="addProductBtn">Adicionar Fornecedor</button>
         </a>
         <button id="editProductBtn" onclick="definirAcao('editar')">Editar Fornecedor</button>

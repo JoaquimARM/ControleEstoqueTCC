@@ -5,7 +5,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #eaf0f6;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,6 +47,7 @@ label {
 
 /* Estilização dos campos de entrada */
 input[type="text"],
+input[type="email"],
 input[type="password"] {
     padding: 10px;
     border: 1px solid #ccc;
@@ -105,3 +106,15 @@ button:hover {
     }
 }
 
+.mensagem-erro {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center; /* Centraliza o texto */
+    font-size: 14px;
+    width: 100%; /* O mesmo tamanho do formulário */
+    box-sizing: border-box; /* Garante que a largura inclua bordas e padding */
+}
